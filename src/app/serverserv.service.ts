@@ -225,4 +225,17 @@ export class ServerservService {
     console.log(this.objectList);
     cb();
   }
+  delete(name):Observable<any>{
+    let token = this.getToken();
+    return this.http.post(
+      `${environment.url}/delete`,
+      { bucketName: localStorage.getItem('bucketName'),key:name },
+      {
+        headers: new HttpHeaders({
+          authorization: token,
+        }),
+      }
+    );
+  }
 }
+

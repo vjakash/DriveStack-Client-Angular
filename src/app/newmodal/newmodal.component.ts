@@ -60,10 +60,19 @@ export class NewmodalComponent implements OnInit {
   }
   upload(){
     if(this.selected=='file'){
-      
+      let totalSize=0;
       for(let i=0;i<this.files.length;i++){
-        console.log(this.files[i]);
-        this.serv.uploadFile(this.files[i]);
+        totalSize+=this.files[i].size;
+      }
+      console.log(totalSize);
+      if((totalSize/1024/1024/1024)+this.serv.currenttotal>this.serv.totalsize){
+        alert("Your limit is reached can't upload anymore files");
+      }
+      else{
+        for(let i=0;i<this.files.length;i++){
+          console.log(this.files[i]);
+          this.serv.uploadFile(this.files[i]);
+        }
       }
     }
     else if(this.selected='folder'){

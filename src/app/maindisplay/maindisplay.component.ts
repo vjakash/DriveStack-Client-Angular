@@ -74,6 +74,17 @@ export class MaindisplayComponent implements OnInit {
       this.clickCount=0;
     },1000);
   }
+  delete(name){
+    console.log(name);
+    this.serv.delete(name).subscribe((data)=>{
+      this.showSuccess(data.message);
+      this.serv.updateObjectList(()=>{
+        console.log("from delete function-maindisplay");
+      });
+    },(err)=>{
+      console.log(err)
+    })
+  }
   ngOnInit(): void {}
   showStandard(msg) {
     this.toastService.show(msg);

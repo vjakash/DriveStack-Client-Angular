@@ -39,10 +39,10 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-center">
                     <app-newmodal folder=""></app-newmodal>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-center">
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width]="perecentUsed">
                             {{perecentUsed}} Used
@@ -50,8 +50,10 @@
                     </div>
                     <h6>{{serv.currenttotal}}/{{serv.totalsize}} GB used</h6>
                 </div>
-                <div class="col-lg-3"></div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-center">
+                    <button class="btn btn-danger" (click)="delete(fileNameToDownload)" [disabled]="pathToDownload==''||fileNameToDownload==''">Delete</button>
+                </div>
+                <div class="col-lg-3 text-center">
                     <button class="btn btn-success" [disabled]="pathToDownload==''||fileNameToDownload==''"><a [href]="pathToDownload" [download]="fileNameToDownload" target="_blank" style="color:white;text-decoration: none;">Download</a></button>
                 </div>
             </div>

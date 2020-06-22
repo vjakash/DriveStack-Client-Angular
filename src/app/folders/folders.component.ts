@@ -19,6 +19,7 @@ export class FoldersComponent implements OnInit {
   clickCount = 0;
   index;
   folder;
+  folderTodelete='';
   constructor(
     private router: Router,
     public serv: ServerservService,
@@ -73,6 +74,7 @@ export class FoldersComponent implements OnInit {
   }
   selectFile(folders,name) {
     let folder=[...folders].join('/');
+    this.folderTodelete=[...folders].join('/');
     this.pathToDownload = `https://${localStorage.getItem(
       'bucketName'
     )}.s3.ap-south-1.amazonaws.com/${folder}/${name}`;
@@ -87,6 +89,58 @@ export class FoldersComponent implements OnInit {
     setTimeout(()=>{
       this.clickCount=0;
     },1000);
+  }
+  delete(name){
+    console.log(name);
+    this.serv.delete(`${this.folderTodelete}/${name}`).subscribe((data)=>{
+      this.showSuccess(data.message);
+      this.serv.updateObjectList(()=>{
+        this.index = this.activatedRoute.snapshot.params.index;
+        this.serv.getUserData().subscribe(
+          (data) => {
+            this.userData = data;
+            this.serv.updateBucketName(data['bucketName']);
+            console.log(data['totalsize'])
+            this.serv.totalsize = parseFloat(data['totalsize']);
+            this.serv.perecentUsed =
+            String(
+              (this.serv.currenttotal/ this.serv.totalsize) * 100
+            ) + '%';
+            console.log( this.serv.totalsize,this.serv.perecentUsed )
+            if(this.index.length>1){
+              for(let i of this.index.split("")){
+                this.serv.getSubfolders(this.serv.objectList[parseInt(i)].url,()=>{
+                  this.loader=false
+                 console.log("inside folder");
+                 console.log(this.serv.objectList)
+                 if(this.serv.objectList.length!=0){
+                    this.folder=[...this.serv.objectList[0].folders].join("/")
+                 }
+                });
+              }
+            }else{
+              this.serv.getSubfolders(this.serv.objectList[this.index].url,()=>{
+                this.loader=false
+               console.log("inside folder");
+               console.log(this.serv.objectList)
+               if(this.serv.objectList.length!=0){
+                  this.folder=[...this.serv.objectList[0].folders].join("/")
+               }
+              });
+            }
+            
+          },
+          (err) => {
+            console.log(err);
+            // alert(err.error.message);
+            this.showDanger(err.error.message);
+            this.router.navigate(['/']);
+          }
+        );
+      });
+    },(err)=>{
+      console.log(err)
+    })
   }
   ngOnInit(): void {
     
