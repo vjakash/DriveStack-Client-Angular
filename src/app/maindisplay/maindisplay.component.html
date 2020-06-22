@@ -1,4 +1,4 @@
-<div class="container mt-5" style="min-height: 50vh;">
+<div class="container mt-5">
     <!-- Toaster Container componet -->
     <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
     <!--  -->
@@ -29,9 +29,30 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="!loader && userData.isVerified">
+    <!-- <div class="row" *ngIf="!loader && userData.isVerified">
         <div class="col-lg-12">
             <h1>VERIFIED</h1>
         </div>
+    </div> -->
+</div>
+<div class="container" style="min-height: 20vh;" *ngIf="!loader && userData.isVerified">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-3">
+                    <app-newmodal></app-newmodal>
+                </div>
+                <div class="col-lg-3">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width]="perecentUsed">
+                            {{perecentUsed}} Used
+                        </div>
+                    </div>
+                    <h6>{{serv.currenttotal}}/{{serv.totalsize}} GB used</h6>
+                </div>
+            </div>
+
+        </div>
     </div>
+    <hr>
 </div>

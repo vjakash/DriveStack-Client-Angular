@@ -1,0 +1,66 @@
+<ng-template #content let-modal>
+    <ng-container *ngIf=" !loader">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Upload</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <select class="custom-select" [(ngModel)]="selected" id="inputGroupSelect04" aria-label="Example select with button addon">
+                          <option selected value="">Create New</option>
+                          <option value="file">File</option>
+                          <option value="folder">Folder</option>
+                        </select>
+                </div>
+            </div>
+            <div class="input-group mb-3" *ngIf="selected!=''&&selected=='file'">
+                <div class="custom-file">
+                    <input type="file" multiple class="custom-file-input" id="inputGroupFile02" (change)="onFileSelected($event)">
+                    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                </div>
+                <!-- <div class="input-group-append">
+                      <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+                    </div> -->
+            </div>
+            <div class="input-group mb-3" *ngIf="selected!=''&&selected=='folder'">
+                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">Folder Name</span>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="modal-footer">
+            <!-- {{obj.title}} {{obj.type}} {{obj.content}} {{obj.mentorInst}} -->
+            <button type="button" class="btn btn-outline-dark" (click)="upload()" [disabled]="selected==''">upload</button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="loader">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Upload</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  <span aria-hidden="true">&times;</span>
+</button>
+        </div>
+        <div class="modal-body text-center">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+    </ng-container>
+</ng-template>
+<!-- <button class="btn btn-secondary mt-1 button1" (click)="open(content)">Create New URL</button> -->
+&nbsp;<button class="newBtn" (click)="open(content)" style="font-size: 2rem;padding:5px;background: none;border:1px solid white;border-radius: 45px;outline-style:none">&nbsp;&nbsp;New &nbsp;&nbsp;<fa-icon [icon]="faPlus" class="iconPlus"></fa-icon>&nbsp;&nbsp;</button>

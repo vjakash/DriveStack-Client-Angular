@@ -18,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ToastContainerComponent } from './toast-container/toast-container.component';
 import { MaindisplayComponent } from './maindisplay/maindisplay.component';
+import { NewmodalComponent } from './newmodal/newmodal.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MaindisplayComponent } from './maindisplay/maindisplay.component';
     VerificationComponent,
     DashboardComponent,
     ToastContainerComponent,
-    MaindisplayComponent
+    MaindisplayComponent,
+    NewmodalComponent
   ],
   imports: [
     BrowserModule,
