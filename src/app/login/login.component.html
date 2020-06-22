@@ -1,0 +1,55 @@
+<div class="container-fluid text-center bg-dark text-white">
+    <h1 routerLink="/" style="cursor: pointer;">Cloud Stack</h1>
+    <!-- Toaster Container componet -->
+    <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+    <!--  -->
+</div>
+<div class="container-fluid mt-5 text-center" *ngIf="loader">
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5 text-center">
+        <div class="col-lg-12 mt-5 text-center">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5" *ngIf="!loader">
+    <div class="row text-center mt-5">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6 text-center">
+            <h1>Login</h1>
+            <br>
+            <form (ngSubmit)="login()" [formGroup]="loginDetails">
+                <!-- <label for="">E-mail</label> -->
+                <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!loginDetails.get('email').valid && valid,'valid':loginDetails.get('email').valid}">
+                <span *ngIf="!loginDetails.get('email').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
+                <br><br>
+                <!-- <label for="">Password</label> -->
+                <input type="password" class="form-control search" id="domainName" formControlName="password" placeholder="Enter password" [ngClass]="{'error':!loginDetails.get('password').valid && valid ,'valid':loginDetails.get('password').valid}">
+                <span *ngIf="!loginDetails.get('password').valid && valid" style="color: red;">Please enter a password</span>
+                <br>
+                <a routerLink="/forgot">
+                    <p class="text-muted">Forgot password?</p>
+                </a>
+                <input type="submit" class="btn btn-dark" value="Log In" (click)="login()">
+            </form>
+            <br>
+            <a routerLink="/register">
+                <h3>Register new account</h3>
+            </a>
+        </div>
+    </div>
+</div>

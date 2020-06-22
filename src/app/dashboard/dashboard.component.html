@@ -1,0 +1,24 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <!-- Toaster Container componet -->
+    <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+    <!--  -->
+    <h5 class="my-0 mr-md-auto font-weight-normal">Cloud Stack</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" routerLink="/dashboard">Dashboard</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="p-2 text-dark navbaritem" (click)="verify()" style="cursor: pointer;">Shorten Url</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="p-2 text-dark" href="#" (click)="signout()">
+            <fa-icon [icon]="faPowerOff"></fa-icon>
+        </a>
+    </nav>
+</div>
+<router-outlet></router-outlet>
+<!-- <footer class="my-5 pt-5 text-muted text-center text-small">
+    <hr>
+    <ul style="list-style: none;" class="text-center">
+        <li>
+            <a href="https://github.com/vjakash/UrlShortener-Client-Angular" target="_blank"><button class="btn btn-dark"><img src="assets\images\github.png" alt="Github" width="30" height="30" > &nbsp;Open Sourced on Github</button></a>
+        </li>
+        <br>
+        <li><a href="https://www.linkedin.com/in/vijay-akash-6419911a3/" target="_blank"><button class="btn" style="background-color: #EFF7FF;z-index: -1;"><img src="assets\images\in.png" alt="Github" width="30" height="30" > &nbsp;Connect through LinkedIn</button></a></li>
+    </ul>
+</footer> -->

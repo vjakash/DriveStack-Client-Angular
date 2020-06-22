@@ -1,0 +1,48 @@
+<div class="container-fluid text-center bg-dark text-white">
+    <h1 routerLink="/" style="cursor: pointer;">Cloud Stack</h1>
+    <!-- Toaster Container componet -->
+    <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+    <!--  -->
+</div>
+<div class="container-fluid mt-5 text-center" *ngIf="loader">
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5 text-center">
+        <div class="col-lg-12 mt-5 text-center">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5" *ngIf="!loader">
+    <div class="row text-center mt-5">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6 text-center">
+            <h1>Reset Password</h1>
+            <br>
+            <form (ngSubmit)="reset()" [formGroup]="newPassword">
+                <input type="password" class="form-control search" formControlName="password" placeholder="Enter New Password" [ngClass]="{'error':!newPassword.get('password').valid && valid,'valid':newPassword.get('password').valid}">
+                <span *ngIf="!newPassword.get('password').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
+                <br>
+                <br>
+                <input type="password" class="form-control search" formControlName="confirm_password" placeholder="Confirm Password" [ngClass]="{'error':!newPassword.get('confirm_password').valid && valid,'valid':newPassword.get('confirm_password').valid}">
+                <span *ngIf="!newPassword.get('confirm_password').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
+                <span *ngIf="!match" style="color: red;">Password Does not match</span>
+                <br><br>
+                <input type="submit" class="btn btn-dark" value="Reset">
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container mt-5" style="min-height: 50vh;">
+    <!-- Toaster Container componet -->
+    <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+    <!--  -->
+    <div class="row mt-5" *ngIf="loader">
+        <div class="col-lg-12  mt-5 text-center">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!loader && !userData.isVerified">
+        <div class="col-lg-12">
+            <div class="card text-center">
+                <div class="card-header">
+                    Alert
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Account not verified</h5>
+                    <p class="card-text">Please verify the account by clicking the link sent to your E-mail id : {{userData.email}} <br> to continue using all the features of the application</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!loader && userData.isVerified">
+        <div class="col-lg-12">
+            <h1>VERIFIED</h1>
+        </div>
+    </div>
+</div>

@@ -3,16 +3,45 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ForgotComponent } from './forgot/forgot.component';
+import { ResetpassComponent } from './resetpass/resetpass.component';
+import { VerificationComponent } from './verification/verification.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthGuard } from './auth.guard';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { ToastContainerComponent } from './toast-container/toast-container.component';
+import { MaindisplayComponent } from './maindisplay/maindisplay.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotComponent,
+    ResetpassComponent,
+    VerificationComponent,
+    DashboardComponent,
+    ToastContainerComponent,
+    MaindisplayComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    NgbModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [AuthGuard,{provide: LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

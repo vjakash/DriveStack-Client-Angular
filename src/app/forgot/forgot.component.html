@@ -1,0 +1,63 @@
+<div class="container-fluid text-center bg-dark text-white">
+    <h1 routerLink="/" style="cursor: pointer;">Cloud Stack</h1>
+    <!-- Toaster Container componet -->
+    <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+    <!--  -->
+</div>
+<div class="container-fluid mt-5 text-center" *ngIf="loader">
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5 text-center">
+        <div class="col-lg-12 mt-5 text-center">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5" *ngIf="!loader">
+    <div class="row text-center mt-5" *ngIf="accountDetails==null">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6 text-center">
+            <h1>Find Account</h1>
+            <br>
+            <form (ngSubmit)="find()" [formGroup]="findAccount" autocomplete="on">
+                <!-- <label for="">E-mail</label> -->
+                <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!findAccount.get('email').valid && valid,'valid':findAccount.get('email').valid}">
+                <span *ngIf="!findAccount.get('email').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
+                <!-- <label for="">Password</label> -->
+                <br><br>
+                <input type="submit" class="btn btn-dark" value="Find">
+            </form>
+        </div>
+    </div>
+    <div class="row " *ngIf="accountDetails!=null">
+        <div class="col-lg-1"></div>
+        <div class="col-12 col-lg-11  text-center">
+            <div class="card" style="background-color: #F7F7F7;">
+                <div class="card-body">
+                    <h5 class="card-title">E-mail: {{accountDetails.email}}</h5>
+                    <br>
+                    <h6 class="card-subtitle mb-2 ">First Name: {{accountDetails.firstName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Last Name: {{accountDetails.lastName}}</h6>
+                    <!-- <h6 class="card-subtitle mb-2">Last Name: {{accountDetails.lastName}}</h6> -->
+                    <br>
+                    <p class="card-text">click verify to get a verification link to your E-mail</p>
+                    <br>
+                    <button (click)="back()" class=" btn btn-dark">Not Me</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button (click)="sendVerification()" class="btn btn-dark">Verify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

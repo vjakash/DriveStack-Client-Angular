@@ -1,0 +1,77 @@
+<div class="container-fluid text-center bg-dark text-white">
+    <h1 routerLink="/" style="cursor: pointer;">Cloud Stack</h1>
+    <!-- Toaster Container componet -->
+    <app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>
+    <!--  -->
+</div>
+<div class="container-fluid mt-5 text-center" *ngIf="loader">
+    <div class="row mt-5">
+    </div>
+    <div class="row mt-5">
+    </div>
+    <div class="row mt-5 text-center">
+        <div class="col-lg-12 mt-5 text-center">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="!loader">
+    <div class="row ">
+        <div class="col-lg-12 " style="margin-top: 5vh;">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>Register</h1>
+                </div>
+            </div>
+            <br>
+            <form [formGroup]="registerDetails">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="">First Name</label>
+                        <input type="text" class="form-control search" id="firstName" formControlName="firstName" placeholder="Enter FirstName" [ngClass]="{'error':!registerDetails.get('firstName').valid && valid ,'valid':registerDetails.get('firstName').valid}">
+                        <span *ngIf="!registerDetails.get('firstName').valid && valid " style="color: red;">Please enter a firstname</span>
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">Last Name</label>
+                        <input type="text" class="form-control search" id="lastName" formControlName="lastName" placeholder="Enter LastName" [ngClass]="{'error':!registerDetails.get('lastName').valid && valid ,'valid':registerDetails.get('lastName').valid}">
+                        <span *ngIf="!registerDetails.get('lastName').valid && valid " style="color: red;">Please enter a lastname</span>
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="">E-mail</label> {{registerDetails.get('email').onfocus}}
+                        <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!registerDetails.get('email').valid && valid ,'valid':registerDetails.get('email').valid}">
+                        <span *ngIf="!registerDetails.get('email').valid  && valid" style="color: red;">Please enter a valid E-mail id</span>
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control search" id="password" formControlName="password" placeholder="Enter password" [ngClass]="{'error':!registerDetails.get('password').valid && valid ,'valid':registerDetails.get('password').valid}">
+                        <span *ngIf="!registerDetails.get('password').valid && valid" style="color: red;">Please enter a password</span>
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <input type="submit" class="btn btn-dark " value="Register" (click)="register()">
+                    </div>
+                </div>
+            </form>
+            <br>
+
+        </div>
+    </div>
+</div>
