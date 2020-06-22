@@ -27,16 +27,21 @@
                     </div> -->
             </div>
             <div class="input-group mb-3" *ngIf="selected!=''&&selected=='folder'">
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" [(ngModel)]="folderName" placeholder="Folder Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">Folder Name</span>
                 </div>
             </div>
             <br>
+            <ul *ngIf="selected=='file'">
+                <li *ngFor="let item of this.files">
+                    <h6>{{item.name}}-size:{{item.size/1024/1024 |number}}MB</h6>
+                </li>
+            </ul>
         </div>
         <div class="modal-footer">
             <!-- {{obj.title}} {{obj.type}} {{obj.content}} {{obj.mentorInst}} -->
-            <button type="button" class="btn btn-outline-dark" (click)="upload()" [disabled]="selected==''">upload</button>
+            <button type="button" class="btn btn-outline-dark" (click)="upload()" [disabled]="selected==''||(folderName=='' && selected=='folder')">upload</button>
         </div>
     </ng-container>
 

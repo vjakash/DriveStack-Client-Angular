@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastContainerComponent } from './toast-container/toast-container.component';
 import { MaindisplayComponent } from './maindisplay/maindisplay.component';
 import { NewmodalComponent } from './newmodal/newmodal.component';
+import { FoldersComponent } from './folders/folders.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NewmodalComponent } from './newmodal/newmodal.component';
     DashboardComponent,
     ToastContainerComponent,
     MaindisplayComponent,
-    NewmodalComponent
+    NewmodalComponent,
+    FoldersComponent
   ],
   imports: [
     BrowserModule,
