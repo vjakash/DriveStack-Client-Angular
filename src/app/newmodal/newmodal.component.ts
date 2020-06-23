@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ServerservService } from '../serverserv.service';
 import { Router } from '@angular/router';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-newmodal',
@@ -22,7 +23,8 @@ export class NewmodalComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private serv: ServerservService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.folder = this.serv.currentFolder;
     console.log('folder', this.folder);
@@ -78,22 +80,43 @@ export class NewmodalComponent implements OnInit {
             console.log(this.files[i]);
             let key = this.files[i].name;
             this.serv.uploadFile(this.files[i], key);
+            this.showSuccess("File Uploaded Successfully")
           }
         } else {
           for (let i = 0; i < this.files.length; i++) {
             console.log(this.files[i]);
             let key = `${this.folder}${this.files[i].name}`;
             this.serv.uploadFile(this.files[i], key);
+            this.showSuccess("File Uploaded Successfully")
           }
         }
       }
     } else if (this.selected == 'folder') {
       if (this.folder == '') {
         this.serv.uploadFolder(this.folderName);
+        this.showSuccess("Folder Uploaded Successfully")
       } else {
         let folders = `${this.folder}${this.folderName}`;
         this.serv.uploadFolder(folders);
+        this.showSuccess("Folder Uploaded Successfully")
       }
     }
+  }
+  showStandard(msg) {
+    this.toastService.show(msg);
+  }
+
+  showSuccess(msg) {
+    this.toastService.show(msg, {
+      classname: 'bg-success text-light',
+      delay: 2000,
+    });
+  }
+
+  showDanger(msg) {
+    this.toastService.show(msg, {
+      classname: 'bg-danger text-light',
+      delay: 5000,
+    });
   }
 }
