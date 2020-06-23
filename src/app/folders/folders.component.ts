@@ -104,6 +104,7 @@ export class FoldersComponent implements OnInit {
   doubleClick(folders, index, name) {
     this.clickCount++;
     this.fileNameToDownload = name;
+    this.pathToDownload="";
     this.selectedIndex = index;
     this.folderTodelete = [...folders].join('/');
     if (this.clickCount == 2) {
@@ -281,15 +282,22 @@ export class FoldersComponent implements OnInit {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
-          if (droppedFile.relativePath.includes('/')) {
-            this.serv.uploadFolder(
-              `${this.folder}/${droppedFile.relativePath.split('/')[0]}`
-            );
+          if (((file.size / 1024 / 1024) + parseFloat(this.serv.currenttotal)) > (parseFloat(this.serv.totalsize)*1024)) {
+            alert("File Size exceeds your storage limit");
           }
-          // Here you can access the real file
-          let key = `${this.folder}/${droppedFile.relativePath}`;
-          this.serv.uploadFileDragandDrop(file, key);
-          console.log('hey there', droppedFile.relativePath, this.folder);
+          else{
+            if (droppedFile.relativePath.includes('/')) {
+              this.serv.uploadFolder(
+                `${this.folder}/${droppedFile.relativePath.split('/')[0]}`
+              );
+            }
+            // Here you can access the real file
+            let key = `${this.folder}/${droppedFile.relativePath}`;
+            this.serv.uploadFileDragandDrop(file, key);
+            console.log('hey there', droppedFile.relativePath, this.folder);
+            this.showSuccess('Files uploaded Successfully');
+
+          }
 
           /**
           // You could upload it like this:
@@ -311,9 +319,10 @@ export class FoldersComponent implements OnInit {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         console.log(droppedFile.relativePath, fileEntry);
+        this.showSuccess('Files uploaded Successfully');
+
       }
     }
-    this.showSuccess('Files uploaded Successfully');
   }
 
   public fileOver(event) {

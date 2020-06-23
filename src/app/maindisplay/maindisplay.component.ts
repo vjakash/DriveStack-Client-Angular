@@ -81,6 +81,7 @@ export class MaindisplayComponent implements OnInit {
   doubleClick(index, name) {
     this.clickCount++;
     this.fileNameToDownload = name;
+    this.pathToDownload="";
     this.selectedIndex = index;
     if (this.clickCount == 2) {
       this.router.navigate([`/dashboard/folder/${index}/${name}`]);
@@ -156,12 +157,16 @@ export class MaindisplayComponent implements OnInit {
         fileEntry.file((file: File) => {
  
           // Here you can access the real file
-          if(droppedFile.relativePath.includes("/")){
-            this.serv.uploadFolder(droppedFile.relativePath.split('/')[0]);
+          if (((file.size / 1024 / 1024) + parseFloat(this.serv.currenttotal)) > (parseFloat(this.serv.totalsize)*1024)) {
+            alert("Your limit is reached can't upload anymore files");
+          }else{
+            if(droppedFile.relativePath.includes("/")){
+              this.serv.uploadFolder(droppedFile.relativePath.split('/')[0]);
+            }
+            this.serv.uploadFileDragandDrop(file,droppedFile.relativePath);
+            console.log("hey there",droppedFile.relativePath, file);
+            this.showSuccess("Files uploaded Successfully");
           }
-          this.serv.uploadFileDragandDrop(file,droppedFile.relativePath);
-          console.log("hey there",droppedFile.relativePath, file);
- 
           /**
           // You could upload it like this:
           const formData = new FormData()
@@ -183,9 +188,10 @@ export class MaindisplayComponent implements OnInit {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         console.log(droppedFile.relativePath, fileEntry);
+        this.showSuccess("Files uploaded Successfully");
       }
     }
-    this.showSuccess("Files uploaded Successfully");
+   
   }
  
 public fileOver(event){

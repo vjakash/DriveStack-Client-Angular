@@ -48,7 +48,9 @@ export class SubfolderComponent implements OnInit {
           console.log(this.serv.totalsize, this.serv.perecentUsed);
           if (this.index.includes('-')) {
             for (let i of this.index.split('-')) {
-              this.folder = [...this.serv.objectList[parseInt(i)].folders].join('/');
+              this.folder = [...this.serv.objectList[parseInt(i)].folders].join(
+                '/'
+              );
               this.serv.updateCurrentFolder(this.folder);
               this.serv.getSubfolders(
                 this.serv.objectList[parseInt(i)].url,
@@ -64,9 +66,10 @@ export class SubfolderComponent implements OnInit {
                 }
               );
             }
-          }
-           else {
-            this.folder = [...this.serv.objectList[this.index].folders].join('/');
+          } else {
+            this.folder = [...this.serv.objectList[this.index].folders].join(
+              '/'
+            );
             this.serv.updateCurrentFolder(this.folder);
             this.serv.getSubfolders(
               this.serv.objectList[this.index].url,
@@ -101,11 +104,16 @@ export class SubfolderComponent implements OnInit {
   }
   doubleClick(folders, index, name) {
     this.clickCount++;
+    this.pathToDownload="";
     this.fileNameToDownload = name;
     this.selectedIndex = index;
     this.folderTodelete = [...folders].join('/');
     if (this.clickCount == 2) {
-      this.router.navigate([`/dashboard/folder/${this.index}-${index}/${this.folder.split('/').join('-')}`]);
+      this.router.navigate([
+        `/dashboard/folder/${this.index}-${index}/${this.folder
+          .split('/')
+          .join('-')}`,
+      ]);
     }
     setTimeout(() => {
       this.clickCount = 0;
@@ -113,8 +121,8 @@ export class SubfolderComponent implements OnInit {
   }
   delete(name) {
     console.log(name);
-    let ret=confirm("Do you really want to delete this file?");
-    if(ret){
+    let ret = confirm('Do you really want to delete this file?');
+    if (ret) {
       if (name[name.length - 1] == '/') {
         console.log(
           this.serv.objectList[this.selectedIndex].url,
@@ -136,9 +144,12 @@ export class SubfolderComponent implements OnInit {
                       this.serv.updateBucketName(data['bucketName']);
                       console.log(data['totalsize']);
                       this.serv.totalsize = parseFloat(data['totalsize']);
-                      this.serv.perecentUsed =String((this.serv.currenttotal / this.serv.totalsize) * 100) + '%';
+                      this.serv.perecentUsed =
+                        String(
+                          (this.serv.currenttotal / this.serv.totalsize) * 100
+                        ) + '%';
                       console.log(this.serv.totalsize, this.serv.perecentUsed);
-                      if (this.index.includes("-")) {
+                      if (this.index.includes('-')) {
                         for (let i of this.index.split('-')) {
                           console.log(this.serv.objectList[parseInt(i)]);
                           this.serv.getSubfolders(
@@ -213,18 +224,22 @@ export class SubfolderComponent implements OnInit {
                         console.log('inside folder');
                         console.log(this.serv.objectList);
                         if (this.serv.objectList.length != 0) {
-                          this.folder = [...this.serv.objectList[0].folders].join(
-                            '/'
-                          );
-                        }else{
-                          this.folder = [...this.serv.objectList[this.index].folders].join('/');
+                          this.folder = [
+                            ...this.serv.objectList[0].folders,
+                          ].join('/');
+                        } else {
+                          this.folder = [
+                            ...this.serv.objectList[this.index].folders,
+                          ].join('/');
                           this.serv.updateCurrentFolder(this.folder);
                         }
                       }
                     );
                   }
                 } else {
-                  this.folder = [...this.serv.objectList[this.index].folders].join('/');
+                  this.folder = [
+                    ...this.serv.objectList[this.index].folders,
+                  ].join('/');
                   this.serv.updateCurrentFolder(this.folder);
                   this.serv.getSubfolders(
                     this.serv.objectList[this.index].url,
@@ -281,15 +296,23 @@ export class SubfolderComponent implements OnInit {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
-          // Here you can access the real file
-          if(droppedFile.relativePath.includes("/")){
-            this.serv.uploadFolder(
-              `${this.folder}/${droppedFile.relativePath.split('/')[0]}`
-            );
+          if (
+            file.size / 1024 / 1024 + parseFloat(this.serv.currenttotal) >
+            parseFloat(this.serv.totalsize) * 1024
+          ) {
+            alert('File Size exceeds your storage limit');
+          } else {
+            // Here you can access the real file
+            if (droppedFile.relativePath.includes('/')) {
+              this.serv.uploadFolder(
+                `${this.folder}/${droppedFile.relativePath.split('/')[0]}`
+              );
+            }
+            let key = `${this.folder}/${droppedFile.relativePath}`;
+            this.serv.uploadFileDragandDrop(file, key);
+            console.log('hey there', droppedFile.relativePath, this.folder);
+            this.showSuccess('Files uploaded Successfully');
           }
-          let key = `${this.folder}/${droppedFile.relativePath}`;
-          this.serv.uploadFileDragandDrop(file, key);
-          console.log('hey there', droppedFile.relativePath, this.folder);
 
           /**
           // You could upload it like this:
@@ -311,9 +334,10 @@ export class SubfolderComponent implements OnInit {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         console.log(droppedFile.relativePath, fileEntry);
+        this.showSuccess('Files uploaded Successfully');
       }
     }
-    this.showSuccess('Files uploaded Successfully');
+    
   }
 
   public fileOver(event) {
