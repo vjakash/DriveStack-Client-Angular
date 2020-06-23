@@ -13,7 +13,7 @@ export class ServerservService {
   objectList = [];
   totalsize;
   currenttotal;
-  perecentUsed="0";
+  perecentUsed="0%";
   currentFolder='';
   constructor(private http: HttpClient, private router: Router) {}
   login(data): Observable<any> {

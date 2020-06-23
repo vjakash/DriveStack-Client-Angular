@@ -56,7 +56,7 @@ export class MaindisplayComponent implements OnInit {
           this.serv.currenttotal = (total / 1024 / 1024 / 1024).toFixed(4);
           this.perecentUsed =
             String(
-              (parseFloat(this.serv.currenttotal) / this.serv.totalsize) * 100
+              ((parseFloat(this.serv.currenttotal) /parseFloat(this.serv.totalsize)) * 100).toPrecision(4)
             ) + '%';
           console.log(
             this.perecentUsed,

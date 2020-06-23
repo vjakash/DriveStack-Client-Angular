@@ -43,8 +43,10 @@ export class SubfolderComponent implements OnInit {
           this.serv.updateBucketName(data['bucketName']);
           console.log(data['totalsize']);
           this.serv.totalsize = parseFloat(data['totalsize']);
-          this.serv.perecentUsed =
-            String((this.serv.currenttotal / this.serv.totalsize) * 100) + '%';
+          this.perecentUsed =
+          String(
+            ((parseFloat(this.serv.currenttotal) /parseFloat(this.serv.totalsize)) * 100).toPrecision(4)
+          ) + '%';
           console.log(this.serv.totalsize, this.serv.perecentUsed);
           if (this.index.includes('-')) {
             for (let i of this.index.split('-')) {
@@ -144,10 +146,10 @@ export class SubfolderComponent implements OnInit {
                       this.serv.updateBucketName(data['bucketName']);
                       console.log(data['totalsize']);
                       this.serv.totalsize = parseFloat(data['totalsize']);
-                      this.serv.perecentUsed =
-                        String(
-                          (this.serv.currenttotal / this.serv.totalsize) * 100
-                        ) + '%';
+                      this.perecentUsed =
+                      String(
+                        ((parseFloat(this.serv.currenttotal) /parseFloat(this.serv.totalsize)) * 100).toPrecision(4)
+                      ) + '%';
                       console.log(this.serv.totalsize, this.serv.perecentUsed);
                       if (this.index.includes('-')) {
                         for (let i of this.index.split('-')) {
