@@ -46,8 +46,8 @@ export class SubfolderComponent implements OnInit {
           this.serv.perecentUsed =
             String((this.serv.currenttotal / this.serv.totalsize) * 100) + '%';
           console.log(this.serv.totalsize, this.serv.perecentUsed);
-          if (this.index.length > 1) {
-            for (let i of this.index.split('')) {
+          if (this.index.includes('-')) {
+            for (let i of this.index.split('-')) {
               this.serv.getSubfolders(
                 this.serv.objectList[parseInt(i)].url,
                 () => {
@@ -100,7 +100,7 @@ export class SubfolderComponent implements OnInit {
     this.selectedIndex = index;
     this.folderTodelete = [...folders].join('/');
     if (this.clickCount == 2) {
-      this.router.navigate([`/dashboard/folder/${this.index}${index}`]);
+      this.router.navigate([`/dashboard/folder/${this.index}-${index}`]);
     }
     setTimeout(() => {
       this.clickCount = 0;
@@ -134,8 +134,8 @@ export class SubfolderComponent implements OnInit {
                         (this.serv.currenttotal / this.serv.totalsize) * 100
                       ) + '%';
                     console.log(this.serv.totalsize, this.serv.perecentUsed);
-                    if (this.index.length > 1) {
-                      for (let i of this.index.split('')) {
+                    if (this.index.includes("-")) {
+                      for (let i of this.index.split('-')) {
                         console.log(this.serv.objectList[parseInt(i)]);
                         this.serv.getSubfolders(
                           this.serv.objectList[parseInt(i)].url,
@@ -199,8 +199,8 @@ export class SubfolderComponent implements OnInit {
                 String((this.serv.currenttotal / this.serv.totalsize) * 100) +
                 '%';
               console.log(this.serv.totalsize, this.serv.perecentUsed);
-              if (this.index.length > 1) {
-                for (let i of this.index.split('')) {
+              if (this.index.includes('-')) {
+                for (let i of this.index.split('-')) {
                   console.log(this.serv.objectList[parseInt(i)]);
                   this.serv.getSubfolders(
                     this.serv.objectList[parseInt(i)].url,
