@@ -77,13 +77,13 @@ export class NewmodalComponent implements OnInit {
           for (let i = 0; i < this.files.length; i++) {
             console.log(this.files[i]);
             let key = this.files[i].name;
-            // this.serv.uploadFile(this.files[i], key);
+            this.serv.uploadFile(this.files[i], key);
           }
         } else {
           for (let i = 0; i < this.files.length; i++) {
             console.log(this.files[i]);
             let key = `${this.folder}${this.files[i].name}`;
-            // this.serv.uploadFile(this.files[i], key);
+            this.serv.uploadFile(this.files[i], key);
           }
         }
       }
