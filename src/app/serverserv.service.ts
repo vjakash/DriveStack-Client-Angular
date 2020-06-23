@@ -286,5 +286,17 @@ export class ServerservService {
       }
     );
   }
+  upgrade():Observable<any>{
+    let token = this.getToken();
+    return this.http.post(
+      `${environment.url}/upgrade`,
+      { email: localStorage.getItem('email') },
+      {
+        headers: new HttpHeaders({
+          authorization: token,
+        }),
+      }
+    );
+  }
 }
 

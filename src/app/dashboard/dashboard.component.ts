@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   }
   verify(){
     if(this.user.isVerified){
-      this.router.navigate(['/dashboard/shorturl']);
+      this.router.navigate(['/dashboard/upgrade']);
     }else{
       this.router.navigate(['/dashboard']);
       // alert("Verify the account to use the feature");

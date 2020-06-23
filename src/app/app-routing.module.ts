@@ -11,6 +11,7 @@ import { LoginguardGuard } from './loginguard.guard';
 import { MaindisplayComponent } from './maindisplay/maindisplay.component';
 import { FoldersComponent } from './folders/folders.component';
 import { SubfolderComponent } from './subfolder/subfolder.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
 
 
 const routes: Routes = [{
@@ -44,6 +45,9 @@ const routes: Routes = [{
   },{
     path:'subfolder/:index',
     component:SubfolderComponent
+  },{
+    path:'upgrade',
+    component:UpgradeComponent
   }
 ]
 }];

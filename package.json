@@ -29,6 +29,7 @@
     "aws-sdk": "^2.701.0",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
+    "crypto-js": "^4.0.0",
     "font-awesome": "^4.7.0",
     "ng-chartjs": "^0.2.0",
     "ngx-file-drop": "^9.0.1",

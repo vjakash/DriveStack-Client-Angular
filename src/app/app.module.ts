@@ -23,6 +23,7 @@ import { FoldersComponent } from './folders/folders.component';
 import { SubfolderComponent } from './subfolder/subfolder.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { UpgradeComponent } from './upgrade/upgrade.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     MaindisplayComponent,
     NewmodalComponent,
     FoldersComponent,
-    SubfolderComponent
+    SubfolderComponent,
+    UpgradeComponent
   ],
   imports: [
     BrowserModule,
