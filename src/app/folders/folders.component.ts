@@ -244,9 +244,10 @@ export class FoldersComponent implements OnInit {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
- 
+          if(droppedFile.relativePath.includes("/")){
+            this.serv.uploadFolder(`${this.folder}/${droppedFile.relativePath.split('/')[0]}`);
+          }
           // Here you can access the real file
-          this.serv.uploadFolder(`${this.folder}/${droppedFile.relativePath.split('/')[0]}`);
           let key=`${this.folder}/${droppedFile.relativePath}`
           this.serv.uploadFileDragandDrop(file,key);
           console.log("hey there",droppedFile.relativePath, this.folder);

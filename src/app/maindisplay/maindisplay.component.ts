@@ -153,7 +153,9 @@ export class MaindisplayComponent implements OnInit {
         fileEntry.file((file: File) => {
  
           // Here you can access the real file
-          this.serv.uploadFolder(droppedFile.relativePath.split('/')[0]);
+          if(droppedFile.relativePath.includes("/")){
+            this.serv.uploadFolder(droppedFile.relativePath.split('/')[0]);
+          }
           this.serv.uploadFileDragandDrop(file,droppedFile.relativePath);
           console.log("hey there",droppedFile.relativePath, file);
  
