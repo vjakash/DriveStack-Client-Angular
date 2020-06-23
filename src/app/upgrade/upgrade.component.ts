@@ -116,7 +116,7 @@ export class UpgradeComponent implements OnInit {
       price: '500',
       list: [
         '5 User',
-        '50GB Storage',
+        '2GB Storage',
         'Unlimited Public Projects',
         'Community Access',
         'Unlimited Private Projects',
