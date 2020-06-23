@@ -10,6 +10,7 @@ import { AuthGuard } from './auth.guard';
 import { LoginguardGuard } from './loginguard.guard';
 import { MaindisplayComponent } from './maindisplay/maindisplay.component';
 import { FoldersComponent } from './folders/folders.component';
+import { SubfolderComponent } from './subfolder/subfolder.component';
 
 
 const routes: Routes = [{
@@ -40,6 +41,9 @@ const routes: Routes = [{
   {
     path:'folder/:index',
     component:FoldersComponent
+  },{
+    path:'subfolder/:index',
+    component:SubfolderComponent
   }
 ]
 }];

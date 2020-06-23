@@ -40,11 +40,11 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-3 text-center">
-                    <app-newmodal folder=""></app-newmodal>
+                    <app-newmodal [folder]='folder'></app-newmodal>
                 </div>
                 <div class="col-lg-3 text-center">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width]="perecentUsed">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" [style.width]="serv.perecentUsed">
                             {{perecentUsed}} Used
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                     <button class="btn btn-danger" (click)="delete(fileNameToDownload)" [disabled]="fileNameToDownload==''">Delete</button>
                 </div>
                 <div class="col-lg-3 text-center">
-                    <button class="btn btn-success" [disabled]="pathToDownload==''||fileNameToDownload==''"><a [href]="pathToDownload" [download]="fileNameToDownload" target="_blank" style="color:white;text-decoration: none;">Download</a></button>
+                    <button class="btn btn-success" [disabled]="pathToDownload==''||fileNameToDownload==''"><a [href]="pathToDownload" [download]="fileNameToDownload" target="_blank" style="color:white;text-decoration: none;" >Download</a></button>
                     <br> {{fileNameToDownload}}
                 </div>
             </div>
@@ -63,7 +63,7 @@
     </div>
     <hr>
 </div>
-<div class="container" *ngIf="!loader && userData.isVerified">
+<div class="container mt-5" *ngIf="!loader && userData.isVerified">
     <div class="row">
         <div class="col-lg-3">
 
@@ -78,14 +78,14 @@
             <div class="col-lg-2 text-center mb-2" *ngIf="item.Key!=''">
                 <!-- {{serv.objectList|json}} -->
                 <!-- <img src="../assets/images/files.png" style="width: 50%;height: 70%;" alt="hey"> -->
-                <div class="card" style="width: 10rem;height: 15rem;" (click)="selectFile(item.Key,i)" style="cursor: pointer;" *ngIf="item.Key[item.Key.length-1]!='/' && item.Key!=''">
+                <div class="card" style="width: 10rem;height: 15rem;" (click)="selectFile(item.folders,item.Key)" style="cursor: pointer;" *ngIf="item.Key[item.Key.length-1]!='/' && item.Key!=''">
                     <img src="../assets/images/files.png" class="card-img-top" alt="...">
 
                     <div class="card-body">
                         <p class="card-text">{{item.Key|slice:0:15}}<span *ngIf="item.Key.length>15">...</span></p>
                     </div>
                 </div>
-                <div class="card" style="width: 10rem;height: 15rem;" (click)="doubleClick(i,item.Key)" style="cursor: pointer;" *ngIf="item.Key[item.Key.length-1]=='/' && item.Key!=''">
+                <div class="card" style="width: 10rem;height: 15rem;" (click)="doubleClick(item.folders,i,item.Key)" style="cursor: pointer;" *ngIf="item.Key[item.Key.length-1]=='/' && item.Key!=''">
                     <img src="../assets/images/folder.png" class="card-img-top" alt="...">
                     <div class="card-body">
                         <p class="card-text">{{item.Key|slice:0:15}}<span *ngIf="item.Key.length>15">...</span></p>

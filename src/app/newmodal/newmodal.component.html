@@ -41,7 +41,7 @@
         </div>
         <div class="modal-footer">
             <!-- {{obj.title}} {{obj.type}} {{obj.content}} {{obj.mentorInst}} -->
-            <button type="button" class="btn btn-outline-dark" (click)="upload()" [disabled]="selected==''||(folderName=='' && selected=='folder')">upload</button>
+            <button type="button" class="btn btn-outline-dark" (click)="upload();modal.close('exit')" [disabled]="selected==''||(folderName=='' && selected=='folder')">upload</button>
         </div>
     </ng-container>
 

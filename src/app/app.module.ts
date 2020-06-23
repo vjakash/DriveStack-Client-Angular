@@ -20,7 +20,9 @@ import { ToastContainerComponent } from './toast-container/toast-container.compo
 import { MaindisplayComponent } from './maindisplay/maindisplay.component';
 import { NewmodalComponent } from './newmodal/newmodal.component';
 import { FoldersComponent } from './folders/folders.component';
+import { SubfolderComponent } from './subfolder/subfolder.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { FoldersComponent } from './folders/folders.component';
     ToastContainerComponent,
     MaindisplayComponent,
     NewmodalComponent,
-    FoldersComponent
+    FoldersComponent,
+    SubfolderComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { FoldersComponent } from './folders/folders.component';
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    NgxFileDropModule
   ],
   providers: [AuthGuard,{provide: LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]

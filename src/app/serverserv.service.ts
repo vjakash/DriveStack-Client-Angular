@@ -96,7 +96,7 @@ export class ServerservService {
       .subscribe((data) => {
         // console.log(data);
         const bucket = new S3({
-          accessKeyId: data['Key'],
+          accessKeyId: data['key'],
           secretAccessKey: data['secret'],
           // region: 'us-east-1',
           region: 'ap-south-1',
@@ -105,6 +105,55 @@ export class ServerservService {
           Bucket: localStorage.getItem('bucketName'),
           // Bucket:'sample-bucket007',
           Key: file.name,
+          Body: file,
+          ACL: 'public-read',
+          ContentType: contentType,
+        };
+        bucket.upload(params, function (err, data) {
+            if (err) {
+                console.log('There was an error uploading your file: ', err);
+                return false;
+            }
+            console.log('Successfully uploaded file.', data);
+            return true;
+        });
+        //for upload progress
+      //   bucket
+      //     .upload(params)
+      //     .on('httpUploadProgress', function (evt) {
+      //       console.log(evt.loaded + ' of ' + evt.total + ' Bytes');
+      //     })
+      //     .send(function (err, data) {
+      //       if (err) {
+      //         console.log('There was an error uploading your file: ', err);
+      //         return false;
+      //       }
+      //       console.log('Successfully uploaded file.', data);
+      //       return true;
+      //     });
+      });
+  }
+  uploadFileDragandDrop(file,key) {
+    const contentType = file.type;
+    let token = this.getToken();
+    this.http
+      .get(`${environment.url}/getkeyandsec`, {
+        headers: new HttpHeaders({
+          authorization: token,
+        }),
+      })
+      .subscribe((data) => {
+        // console.log(data);
+        const bucket = new S3({
+          accessKeyId: data['key'],
+          secretAccessKey: data['secret'],
+          // region: 'us-east-1',
+          region: 'ap-south-1',
+        });
+        const params = {
+          Bucket: localStorage.getItem('bucketName'),
+          // Bucket:'sample-bucket007',
+          Key: key,
           Body: file,
           ACL: 'public-read',
           ContentType: contentType,
@@ -209,7 +258,7 @@ export class ServerservService {
             ) {
               // console.log(objs,index);
               let arr=objs.Key.split("/")
-              objs.folders.push(...item.folders);
+              // objs.folders.push(...item.folders);
               objs.folders.push(arr.splice(0,1)[0]);
               objs.Key=arr.join("/");
               item.url.push(objs);
