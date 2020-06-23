@@ -32,9 +32,9 @@
         <div class="col-lg-6 text-center">
             <h1>Login</h1>
             <br>
-            <form (ngSubmit)="login()" [formGroup]="loginDetails">
+            <form (ngSubmit)="login()" [formGroup]="loginDetails" autocomplete="on">
                 <!-- <label for="">E-mail</label> -->
-                <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!loginDetails.get('email').valid && valid,'valid':loginDetails.get('email').valid}">
+                <input type="text" class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!loginDetails.get('email').valid && valid,'valid':loginDetails.get('email').valid}">
                 <span *ngIf="!loginDetails.get('email').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
                 <br><br>
                 <!-- <label for="">Password</label> -->

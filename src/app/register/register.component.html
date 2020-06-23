@@ -33,7 +33,7 @@
                 </div>
             </div>
             <br>
-            <form [formGroup]="registerDetails">
+            <form [formGroup]="registerDetails" autocomplete="on">
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="">First Name</label>
@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="">E-mail</label> {{registerDetails.get('email').onfocus}}
-                        <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!registerDetails.get('email').valid && valid ,'valid':registerDetails.get('email').valid}">
+                        <input type="text" class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!registerDetails.get('email').valid && valid ,'valid':registerDetails.get('email').valid}">
                         <span *ngIf="!registerDetails.get('email').valid  && valid" style="color: red;">Please enter a valid E-mail id</span>
                         <br>
                     </div>

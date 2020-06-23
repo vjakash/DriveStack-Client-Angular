@@ -16,32 +16,31 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="userData.tier=='free' && !loader">
-        <div class="card mb-5 mb-lg-0">
-            <div class="card-body">
-                <h5 class="card-title text-muted text-uppercase text-center">{{arr[1].tier}}</h5>
-                <h6 class="card-price text-center">{{arr[1].price | currency:'INR'}}<span class="period">/month</span></h6>
-                <hr>
-                <ul class="fa-ul" *ngFor="let listItem of arr[1].list;index as i">
-                    <li>
-                        <span [ngSwitch]="arr[1].tier">
-                      <span *ngSwitchCase="'Plus'">
-                               <span *ngIf="plus(arr[1],i); else elseBlock"> <fa-icon [icon]="faTimes"></fa-icon></span>
-                        <ng-template #elseBlock>
-                            <fa-icon [icon]="faCheck"></fa-icon>
-                        </ng-template>
-                        <span [ngClass]="textMuted(arr[1],i)">{{listItem}}</span>
-                        </span>
-                        </span>
-                    </li>
-                </ul>
-                <a href="#" class="btn btn-block btn-primary text-uppercase" (click)="initPay(arr[1].price)">Upgrade</a>
+    <div class="row" *ngIf=" !loader">
+        <div class="col-lg-4 ">
+            <div class="card mb-5 mb-lg-0">
+                <div class="card-body">
+                    <h5 class="card-title text-muted text-uppercase text-center">PRO</h5>
+                    <h6 class="card-price text-center">{{arr[1].price | currency:'INR'}}<span class="period"></span></h6>
+                    <hr>
+                    <ul class="fa-ul" *ngFor="let listItem of arr[1].list;index as i">
+                        <li>
+                            <span [ngSwitch]="arr[1].tier">
+                          <span *ngSwitchCase="'Plus'">
+                                   <!-- <span *ngIf="plus(arr[1],i); else elseBlock"> <fa-icon [icon]="faTimes"></fa-icon></span> -->
+                            <!-- <ng-template> -->
+                            <fa-icon [icon]="faCheck"></fa-icon>&nbsp;&nbsp;
+                            <!-- </ng-template> -->
+                            <span>{{listItem}}</span>
+                            </span>
+                            </span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-block btn-primary text-uppercase" (click)="initPay(arr[1].price)" [disabled]="!loader && userData.tier=='plus'">Upgrade</button>
+                </div>
             </div>
         </div>
-
-    </div>
-    <div class="row" *ngIf="!loader && userData.tier=='plus'">
-        <div class="col-lg-12">
+        <div class="col-lg-8" *ngIf="!loader && userData.tier=='plus'">
             <div class="card text-center">
                 <div class="card-header">
                     Your account is already upgraded
@@ -53,4 +52,9 @@
             </div>
         </div>
     </div>
+    <!-- <div class="row" *ngIf="!loader && userData.tier=='plus'">
+        <div class="col-lg-12">
+
+        </div>
+    </div> -->
 </div>

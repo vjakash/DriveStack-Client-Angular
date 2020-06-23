@@ -14,6 +14,7 @@ export class ServerservService {
   totalsize;
   currenttotal;
   perecentUsed="0";
+  currentFolder='';
   constructor(private http: HttpClient, private router: Router) {}
   login(data): Observable<any> {
     return this.http.post(`${environment.url}/login`, data);
@@ -60,6 +61,10 @@ export class ServerservService {
   deleteToken() {
     localStorage.removeItem('token');
   }
+  updateCurrentFolder(folderName){
+    this.currentFolder=folderName;
+  }
+
   getUserData(): Observable<any> {
     let token = this.getToken();
     return this.http.post(
@@ -84,7 +89,7 @@ export class ServerservService {
       }
     );
   }
-  uploadFile(file) {
+  uploadFile(file,key) {
     const contentType = file.type;
     let token = this.getToken();
     this.http
@@ -104,7 +109,7 @@ export class ServerservService {
         const params = {
           Bucket: localStorage.getItem('bucketName'),
           // Bucket:'sample-bucket007',
-          Key: file.name,
+          Key: key,
           Body: file,
           ACL: 'public-read',
           ContentType: contentType,
@@ -257,7 +262,7 @@ export class ServerservService {
               item.Key != objs.Key
             ) {
               // console.log(objs,index);
-              let arr=objs.Key.split("/")
+              let arr=objs.Key.split("/");
               // objs.folders.push(...item.folders);
               objs.folders.push(arr.splice(0,1)[0]);
               objs.Key=arr.join("/");
@@ -267,6 +272,7 @@ export class ServerservService {
             }
           });
           item.Size = size;
+          item.folders.push(item.Key);
           this.objectList.push(item);
         }
       }
@@ -291,6 +297,18 @@ export class ServerservService {
     return this.http.post(
       `${environment.url}/upgrade`,
       { email: localStorage.getItem('email') },
+      {
+        headers: new HttpHeaders({
+          authorization: token,
+        }),
+      }
+    );
+  }
+  createOrder(amount):Observable<any>{
+    let token = this.getToken();
+    return this.http.post(
+      `${environment.url}/createOrder`,
+      { email: localStorage.getItem('email'),amount:amount },
       {
         headers: new HttpHeaders({
           authorization: token,

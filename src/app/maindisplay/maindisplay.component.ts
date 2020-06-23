@@ -83,7 +83,7 @@ export class MaindisplayComponent implements OnInit {
     this.fileNameToDownload = name;
     this.selectedIndex = index;
     if (this.clickCount == 2) {
-      this.router.navigate([`/dashboard/folder/${index}`]);
+      this.router.navigate([`/dashboard/folder/${index}/${name}`]);
     }
     setTimeout(() => {
       this.clickCount = 0;
@@ -91,38 +91,41 @@ export class MaindisplayComponent implements OnInit {
   }
   delete(name) {
     console.log(name);
-    if (name[name.length - 1] == '/') {
-      console.log(
-        this.serv.objectList[this.selectedIndex].url,
-        this.selectedIndex
-      );
-      for (let i of this.serv.objectList[this.selectedIndex].url) {
-        console.log(i.Key);
-        let fileToDelete=[...i['folders']].join('/')+"/"+i.Key;
-        this.serv.delete(fileToDelete).subscribe(
-          (data) => {
-            this.showSuccess(data.message);
-            this.serv.updateObjectList(() => {
-              console.log('from delete function-maindisplay' + name);
-            });
-          },
-          (err) => {
-            console.log(err);
-          }
+    let ret=confirm("Do you really want to delete the file?");
+    if(ret){
+      if (name[name.length - 1] == '/') {
+        console.log(
+          this.serv.objectList[this.selectedIndex].url,
+          this.selectedIndex
         );
+        for (let i of this.serv.objectList[this.selectedIndex].url) {
+          console.log(i.Key);
+          let fileToDelete=[...i['folders']].join('/')+"/"+i.Key;
+          this.serv.delete(fileToDelete).subscribe(
+            (data) => {
+              this.showSuccess(data.message);
+              this.serv.updateObjectList(() => {
+                console.log('from delete function-maindisplay' + name);
+              });
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
       }
+      this.serv.delete(name).subscribe(
+        (data) => {
+          this.showSuccess(data.message);
+          this.serv.updateObjectList(() => {
+            console.log('from delete function-maindisplay');
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
-    this.serv.delete(name).subscribe(
-      (data) => {
-        this.showSuccess(data.message);
-        this.serv.updateObjectList(() => {
-          console.log('from delete function-maindisplay');
-        });
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
   ngOnInit(): void {}
   showStandard(msg) {

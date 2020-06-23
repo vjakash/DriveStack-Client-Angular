@@ -34,7 +34,7 @@
             <br>
             <form (ngSubmit)="find()" [formGroup]="findAccount" autocomplete="on">
                 <!-- <label for="">E-mail</label> -->
-                <input type=" text " class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!findAccount.get('email').valid && valid,'valid':findAccount.get('email').valid}">
+                <input type="text" class="form-control search" formControlName="email" placeholder="Enter E-mail Id" [ngClass]="{'error':!findAccount.get('email').valid && valid,'valid':findAccount.get('email').valid}">
                 <span *ngIf="!findAccount.get('email').valid && valid" style="color: red;">Please enter a valid E-mail id</span>
                 <!-- <label for="">Password</label> -->
                 <br><br>

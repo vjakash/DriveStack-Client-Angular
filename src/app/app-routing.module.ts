@@ -40,10 +40,10 @@ const routes: Routes = [{
     component:MaindisplayComponent
   },
   {
-    path:'folder/:index',
+    path:'folder/:index/:name',
     component:FoldersComponent
   },{
-    path:'subfolder/:index',
+    path:'subfolder/:index/:name',
     component:SubfolderComponent
   },{
     path:'upgrade',

@@ -11,28 +11,30 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./newmodal.component.css'],
 })
 export class NewmodalComponent implements OnInit {
-  @Input('folder') folder;
+  folder;
   closeResult = '';
-  faPlus=faPlus;
+  faPlus = faPlus;
   loader = false;
-  selected="";
-  folderName="";
-  files=[];
+  selected = '';
+  folderName = '';
+  files = [];
   constructor(
     private modalService: NgbModal,
     private fb: FormBuilder,
     private serv: ServerservService,
     private router: Router
-  ) {  }
+  ) {
+    this.folder = this.serv.currentFolder;
+    console.log('folder', this.folder);
+  }
 
   ngOnInit(): void {}
   onFileSelected(event) {
-    if(event.target.files.length > 0) 
-     {
-       console.log(event.target.files);
-       this.files=event.target.files;
-     }
-   }
+    if (event.target.files.length > 0) {
+      console.log(event.target.files);
+      this.files = event.target.files;
+    }
+  }
   open(content) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -58,33 +60,37 @@ export class NewmodalComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  upload(){
-    if(this.selected=='file'){
-      let totalSize=0;
-      for(let i=0;i<this.files.length;i++){
-        totalSize+=this.files[i].size;
+  upload() {
+    if (this.selected == 'file') {
+      let totalSize = 0;
+      for (let i = 0; i < this.files.length; i++) {
+        totalSize += this.files[i].size;
       }
       console.log(totalSize);
-      if((totalSize/1024/1024/1024)+this.serv.currenttotal>this.serv.totalsize){
+      if (totalSize / 1024 / 1024 / 1024 + this.serv.currenttotal > this.serv.totalsize) {
         alert("Your limit is reached can't upload anymore files");
-      }
-      else{
-        for(let i=0;i<this.files.length;i++){
-          console.log(this.files[i]);
-          this.serv.uploadFile(this.files[i]);
+      } else {
+        if (this.folder == '') {
+          for (let i = 0; i < this.files.length; i++) {
+            console.log(this.files[i]);
+            let key = this.files[i].name;
+            this.serv.uploadFile(this.files[i], key);
+          }
+        } else {
+          for (let i = 0; i < this.files.length; i++) {
+            console.log(this.files[i]);
+            let key = `${this.folder}${this.files[i].name}`;
+            this.serv.uploadFile(this.files[i], key);
+          }
         }
       }
-    }
-    else if(this.selected='folder'){
-      if(this.folder==''){
+    } else if (this.selected == 'folder') {
+      if (this.folder == '') {
         this.serv.uploadFolder(this.folderName);
-      }else{
-        let folders=`${this.folder}/${this.folderName}`
+      } else {
+        let folders = `${this.folder}${this.folderName}`;
         this.serv.uploadFolder(folders);
       }
     }
-    
-  
   }
-
 }
