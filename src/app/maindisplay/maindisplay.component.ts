@@ -25,6 +25,7 @@ export class MaindisplayComponent implements OnInit {
     public serv: ServerservService,
     private toastService: ToastService
   ) {
+    this.serv.currentFolder='';
     this.serv.updateObjectList(() => {
       this.serv.getUserData().subscribe(
         (data) => {
