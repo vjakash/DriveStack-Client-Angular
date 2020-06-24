@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
     },(err)=>{
       console.log(err);
       alert(err.error.message);
-      this.router.navigate(['/']);
+      this.signout();
     })
    }
 
