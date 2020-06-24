@@ -53,12 +53,15 @@ export class UpgradeComponent implements OnInit {
     private router: Router,
     private toastService: ToastService
   ) {
-    this._window = this.winRef.nativeWindow;
-    this.serv.getUserData().subscribe((data)=>{
-      this.userData=data;
-      this.loader=false;
-    },(err)=>{
-      console.log(err);
+    this.zone.run(()=>{
+      this.loader=true;
+      this._window = this.winRef.nativeWindow;
+      this.serv.getUserData().subscribe((data)=>{
+        this.userData=data;
+        this.loader=false;
+      },(err)=>{
+        console.log(err);
+      })
     })
   }
   initPay(price): void {
