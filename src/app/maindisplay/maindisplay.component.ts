@@ -159,7 +159,10 @@ export class MaindisplayComponent implements OnInit {
  
           // Here you can access the real file
           if (((file.size / 1024 / 1024) + parseFloat(this.serv.currenttotal)) > (parseFloat(this.serv.totalsize)*1024)) {
-            alert("Your limit is reached can't upload anymore files");
+            let temp =confirm("File size exceeds your storage limit,do you want to upgrade?");
+            if(temp){
+              this.router.navigate(['/dashboard/upgrade']);
+            }
           }else{
             if(droppedFile.relativePath.includes("/")){
               this.serv.uploadFolder(droppedFile.relativePath.split('/')[0]);
