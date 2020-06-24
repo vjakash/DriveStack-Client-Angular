@@ -73,7 +73,10 @@ export class NewmodalComponent implements OnInit {
       // console.log(parseFloat(this.serv.totalsize)*1024)
       // console.log(parseFloat(this.serv.totalsize)*1024)
       if (((totalSize / 1024 / 1024) + parseFloat(this.serv.currenttotal)) > (parseFloat(this.serv.totalsize)*1024)) {
-        alert("File Size exceeds your storage limit");
+        let temp =confirm("File size exceeds your storage limit,do you want to upgrade?");
+            if(temp){
+              this.router.navigate(['/dashboard/upgrade']);
+            }
       } else {
         if (this.folder == '') {
           for (let i = 0; i < this.files.length; i++) {

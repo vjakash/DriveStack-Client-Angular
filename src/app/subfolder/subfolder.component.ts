@@ -302,7 +302,10 @@ export class SubfolderComponent implements OnInit {
             file.size / 1024 / 1024 + parseFloat(this.serv.currenttotal) >
             parseFloat(this.serv.totalsize) * 1024
           ) {
-            alert('File Size exceeds your storage limit');
+            let temp =confirm("File size exceeds your storage limit,do you want to upgrade?");
+            if(temp){
+              this.router.navigate(['/dashboard/upgrade']);
+            }
           } else {
             // Here you can access the real file
             if (droppedFile.relativePath.includes('/')) {
